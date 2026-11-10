@@ -5,7 +5,10 @@ from pathlib import Path
 
 app = Flask(__name__)
 
-DATABASE = Path(__file__).resolve().parent.parent / "IT_Inventory.db"
+DATABASE = Path(__file__).resolve().parents[2] / "IT_Inventory.db"
+
+if not DATABASE.is_file():
+    raise FileNotFoundError(f"Database niet gevonden: {DATABASE}")
 
 @app.route("/")
 def home():
@@ -16,10 +19,10 @@ def home():
                 Apparaten.Soort,
                 Locaties.Naam,
                 Voorraad.Aantal
-            FROM Voorraad
-            JOIN Apparaten
-                ON Voorraad.ApparaatID = Apparaten.ApparaatID
-            JOIN Locaties
+            FROM Apparaten
+            LEFT JOIN Voorraad
+                ON Apparaten.ApparaatID = Voorraad.ApparaatID
+            LEFT JOIN Locaties
                 ON Voorraad.LocatieID = Locaties.LocatieID
         """).fetchall()
 
