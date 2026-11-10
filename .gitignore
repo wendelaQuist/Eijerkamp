@@ -1,0 +1,20 @@
+# Python virtual environment
+.venv/
+
+# Python temporary files
+__pycache__/
+*.pyc
+
+# Inventory databases
+*.db
+*.sqlite
+*.sqlite3
+IT_Inventory*
+
+# Inventory data
+*.csv
+*.sqbpro
+
+# Environment variables and secrets
+.env
+.env.*
